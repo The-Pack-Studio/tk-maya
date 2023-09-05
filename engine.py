@@ -384,7 +384,7 @@ class MayaEngine(Engine):
         if maya_ver.startswith("Maya "):
             maya_ver = maya_ver[5:]
         if maya_ver.startswith(
-            ("2014", "2015", "2016", "2017", "2018", "2019", "2020", "2022", "2023")
+            ("2014", "2015", "2016", "2017", "2018", "2019", "2020", "2022", "2023", "2024")
         ):
             self.logger.debug("Running Maya version %s", maya_ver)
 
@@ -850,7 +850,8 @@ class MayaEngine(Engine):
         # We need to double up and backslashes.
         proj_path = proj_path.replace("\\", "\\\\")
 
-        cmds.workspace(proj_path, openWorkspace=True)
+        # cmds.workspace(proj_path, openWorkspace=True) > not working in our pipe Donat
+        mel.eval('setProject("{0}")'.format(proj_path))
 
     ##########################################################################################
     # panel support
